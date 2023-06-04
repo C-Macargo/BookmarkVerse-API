@@ -8,11 +8,13 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  email    String    @unique
-  name     String?
-  sessions Session[]
-  reviews  Review[]
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  name      String?
+  password  String  
+  picture_url String
+  sessions  Session[]
+  reviews   Review[]
   bookmarks Bookmark[]
 }
 
