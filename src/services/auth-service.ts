@@ -4,10 +4,14 @@ import bcrypt from 'bcrypt';
 import { authRepository } from "../repositories/auth-repository";
 
 
-export async function createUser({email, password, name, picture_url}: AuthRequestBody) {
+async function createUser({email, password, name, picture_url}: AuthRequestBody) {
   const emailExists = await authRepository.findUserByEmail(email);
   if (emailExists) throw duplicatedEmailError();
   const hashedPassword = await bcrypt.hash(password, 12)
   const user = await authRepository.createUser(email, hashedPassword, name, picture_url)
   return user
 }
+
+export const authService = {
+  createUser,
+};
