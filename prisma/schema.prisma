@@ -8,25 +8,18 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  name      String?
-  password  String  
+  id          Int        @id @default(autoincrement())
+  email       String     @unique
+  name        String?
+  password    String
   picture_url String
-  sessions  Session[]
-  reviews   Review[]
-  bookmarks Bookmark[]
-}
-
-model Session {
-  id       Int      @id @default(autoincrement())
-  token    String   @unique
-  userId   Int
-  user     User     @relation(fields: [userId], references: [id])
+  token       String?
+  reviews     Review[]
+  bookmarks   Bookmark[]
 }
 
 model Book {
-  id          String   @id @unique
+  id          String    @id @unique
   title       String
   authors     String[]
   description String?

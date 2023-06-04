@@ -5,11 +5,17 @@ import { ApplicationError } from "../utils/protocols";
 export function errorHandler(
 	err: ApplicationError | Error,
 	_req: Request,
-	res: Response,
+	res: Response
 ) {
 	if (err.name === "ConflictError" || err.name === "DuplicatedEmailError") {
 		return res.status(httpStatus.CONFLICT).send({
 			message: err.message,
+		});
+	}
+
+	if (err.name === "InvalidCredentialsError") {
+		return res.status(httpStatus.UNAUTHORIZED).send({
+			message: "Invalid credentials",
 		});
 	}
 
@@ -19,4 +25,3 @@ export function errorHandler(
 		message: "Internal Server Error",
 	});
 }
-
