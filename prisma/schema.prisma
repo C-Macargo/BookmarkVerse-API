@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -13,13 +13,13 @@ model User {
   name        String?
   password    String
   picture_url String
-  token       String?
   reviews     Review[]
   bookmarks   Bookmark[]
+  sessions    Session[]  @relation("user_sessions")
 }
 
 model Book {
-  id          String    @id @unique
+  id          String     @id @unique
   title       String
   authors     String[]
   description String?
@@ -28,20 +28,28 @@ model Book {
   bookmarks   Bookmark[]
 }
 
+model Session {
+  id          Int        @id @default(autoincrement())
+  token       String     @unique
+  user_id     Int        @unique
+  created_at  DateTime   @default(now())
+  user        User       @relation("user_sessions", fields: [user_id], references: [id])
+}
+
 model Bookmark {
-  id       Int    @id @default(autoincrement())
-  userId   Int
-  bookId   String
-  user     User   @relation(fields: [userId], references: [id])
-  book     Book   @relation(fields: [bookId], references: [id])
+  id     Int    @id @default(autoincrement())
+  user_id Int
+  book_id String
+  user   User   @relation(fields: [user_id], references: [id])
+  book   Book   @relation(fields: [book_id], references: [id])
 }
 
 model Review {
   id     Int    @id @default(autoincrement())
   text   String
   rating Int
-  book   Book   @relation(fields: [bookId], references: [id])
-  bookId String
-  user   User?  @relation(fields: [userId], references: [id])
-  userId Int?
+  book   Book   @relation(fields: [book_id], references: [id])
+  book_id String
+  user   User?  @relation(fields: [user_id], references: [id])
+  user_id Int?
 }

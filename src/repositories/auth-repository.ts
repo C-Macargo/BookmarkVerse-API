@@ -26,11 +26,26 @@ async function createUser(
 	return user;
 }
 
-async function updateSessionToken(userId: number, newToken: string): Promise<void> {
-	await prisma.user.update({
-	  where: { id: userId },
-	  data: { token: newToken },
+async function upsertSessionToken(userId: number, newToken: string): Promise<void> {
+    await prisma.session.upsert({
+        where: { user_id: userId },
+        create: {
+            user_id: userId,
+            token: newToken,
+        },
+        update: { token: newToken },
+    });
+}
+
+
+  async function findSessionByUserId(id: number) {
+	const session = await prisma.session.findUnique({
+	  where: {
+		user_id:id,
+	  },
 	});
+  
+	return session;
   }
   
 
@@ -38,5 +53,6 @@ async function updateSessionToken(userId: number, newToken: string): Promise<voi
 export const authRepository = {
 	findUserByEmail,
 	createUser,
-	updateSessionToken
+	upsertSessionToken,
+	findSessionByUserId
 };
