@@ -1,13 +1,14 @@
 {
 	"compilerOptions": {
+		"target": "es2020",
+		"module": "commonjs",
 		"outDir": "dist",
-		"esModuleInterop": true,
 		"noImplicitAny": true,
-		"baseUrl": "src",
-		"module": "CommonJS",
-		"moduleResolution": "Node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"esModuleInterop": true,
 		"rootDirs": ["src", "tests"],
-		"strict": true,
+		"baseUrl": "src",
 		"paths": {
 			"@/*": ["*"]
 		},
@@ -17,7 +18,5 @@
 			}
 		]
 	},
-	"ts-node": {
-		"esm": true
-	}
+	"include": ["src", "tests"]
 }
