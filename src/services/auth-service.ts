@@ -30,9 +30,10 @@ async function loginUser({ email, password }: AuthLoginRequestBody): Promise<str
 }
 
 function isTokenExpired(token: string): boolean {
-  const decoded = jwt.verify(token, process.env.SECRET_KEY!) as { exp: number };
+  const decoded = jwt.decode(token) as { exp: number } | null;
+  if (!decoded) return true;
   return decoded.exp < Math.floor(Date.now() / 1000);
-} 
+}
 
 export const authService = {
   createUser,
