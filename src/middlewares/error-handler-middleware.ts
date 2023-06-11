@@ -15,7 +15,13 @@ export function errorHandler(
 
 	if (err.name === "InvalidCredentialsError") {
 		return res.status(httpStatus.UNAUTHORIZED).send({
-			message: "Invalid credentials",
+			message: err.message,
+		});
+	}
+
+	if (err.name === "InvalidSearchError") {
+		return res.status(httpStatus.NOT_FOUND).send({
+			message: err.message,
 		});
 	}
 
