@@ -19,13 +19,16 @@ model User {
 }
 
 model Book {
-  id          String     @id @unique
-  title       String
-  authors     String[]
-  description String?
-  thumbnail   String?
-  reviews     Review[]
-  bookmarks   Bookmark[]
+  id            String     @id @unique
+  title         String
+  authors       String[]
+  description   String?
+  thumbnail     String?
+  publishedDate String?
+  subtitle      String?
+  language      String?
+  reviews       Review[]
+  bookmarks     Bookmark[]
 }
 
 model Session {
