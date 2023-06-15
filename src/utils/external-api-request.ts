@@ -3,7 +3,7 @@ import axios from "axios";
 export default async function searchBooks(query: string) {
 	try {
 		const fields =
-			"items(volumeInfo/title,volumeInfo/authors,volumeInfo/publishedDate,volumeInfo/imageLinks,volumeInfo/description,volumeInfo/subtitle,volumeInfo/language)";
+			"items(id,volumeInfo/title,volumeInfo/authors,volumeInfo/publishedDate,volumeInfo/imageLinks,volumeInfo/description,volumeInfo/subtitle,volumeInfo/language)";
 		const response = await axios.get(
 			"https://www.googleapis.com/books/v1/volumes",
 			{

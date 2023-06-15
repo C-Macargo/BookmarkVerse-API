@@ -10,7 +10,7 @@ import { errorHandler } from "./middlewares/error-handler-middleware";
 dotenv.config();
 const app = express();
 
-app.use(cors()).use(express.json()).use(appRouter).use(errorHandler);
+app.use(cors()).use(express.json()).use(appRouter);
 
 app.get('/health', (_req, res) => res.send('OK!'))
 
