@@ -1,4 +1,3 @@
-import { AuthenticatedRequest } from "@/middlewares/authentication-middleware";
 import { errorHandler } from "@/middlewares/error-handler-middleware";
 import { bookService } from "@/services/book-service";
 import { ApplicationError } from "@/utils/protocols";

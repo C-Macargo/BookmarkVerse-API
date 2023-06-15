@@ -16,6 +16,8 @@ model User {
   reviews     Review[]
   bookmarks   Bookmark[]
   sessions    Session[]  @relation("user_sessions")
+  created_at  DateTime   @default(now())
+  updated_at DateTime  @updatedAt
 }
 
 model Book {
@@ -37,6 +39,7 @@ model Session {
   token       String     @unique
   user_id     Int        @unique
   created_at  DateTime   @default(now())
+  updated_at DateTime  @updatedAt
   user        User       @relation("user_sessions", fields: [user_id], references: [id])
 }
 
