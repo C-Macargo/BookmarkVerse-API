@@ -28,8 +28,22 @@ async function createBookmark(req: AuthenticatedRequest, res: Response) {
 	}
 }
 
+async function removeBookmark(req: AuthenticatedRequest, res: Response) {
+	const { userId } = req as { userId: number };
+	const { bookId } = req.body as { bookId: number };
+	try {
+		const bookmarks = await bookmarkService.removeBookmark(userId, bookId);
+		return res.status(httpStatus.ACCEPTED).send({});
+	} catch (err: unknown) {
+		const error = err as ApplicationError | Error;
+		errorHandler(error, req, res);
+	}
+
+}
+
 
 export default {
 	findBookmarks,
 	createBookmark,
+	removeBookmark
 };

@@ -12,9 +12,16 @@ async function createBookmark(userId: number, bookId: number) {
     return bookmark
 }
 
+async function removeBookmark(userId: number, bookId: number) {
+	if (!userId || !bookId) throw badRequestError();
+	const bookmark = await bookmarkRepository.removeBookmark(userId, bookId);
+    return bookmark
+}
+
 
 
 export const bookmarkService = {
 	findBookmarks,
 	createBookmark,
+	removeBookmark
 };
