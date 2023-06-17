@@ -1,3 +1,5 @@
 export * from './duplicated-email-error'
 export * from './invalid-credentials-error'
 export * from './unauthorized-error'
+export * from './bad-request-error'
+export * from './invalid-search-error'

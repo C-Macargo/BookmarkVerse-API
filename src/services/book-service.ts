@@ -1,4 +1,4 @@
-import { invalidSearchError } from "@/errors/invalid-search-error";
+import { invalidSearchError } from "@/errors";
 import { bookRepository } from "@/repositories/book-repository";
 import searchBooks from "@/utils/external-api-request";
 import { Book } from "@/utils/protocols";

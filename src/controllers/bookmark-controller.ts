@@ -8,14 +8,28 @@ import httpStatus from "http-status";
 async function findBookmarks(req: AuthenticatedRequest, res: Response) {
 	const { userId } = req as { userId: number };
 	try {
-		const bookmarks = bookmarkService.findBookmarks(userId);
-		return res.status(httpStatus.OK).send(bookmarks);
+		const bookmarks = await bookmarkService.findBookmarks(userId);
+		return res.status(httpStatus.OK).send({bookmarkIds:bookmarks});
 	} catch (err: unknown) {
 		const error = err as ApplicationError | Error;
 		errorHandler(error, req, res);
 	}
 }
 
+async function createBookmark(req: AuthenticatedRequest, res: Response) {
+	const { userId } = req as { userId: number };
+	const { bookId } = req.body as { bookId: number };
+	try {
+		const bookmarks = await bookmarkService.createBookmark(userId, bookId);
+		return res.status(httpStatus.CREATED).send({});
+	} catch (err: unknown) {
+		const error = err as ApplicationError | Error;
+		errorHandler(error, req, res);
+	}
+}
+
+
 export default {
 	findBookmarks,
+	createBookmark,
 };

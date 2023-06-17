@@ -4,7 +4,7 @@ import { Router } from "express";
 
 const bookRouter = Router()
 
-bookRouter.post('/find', bookController.findBooks);
+bookRouter.get('/find', bookController.findBooks);
 
 
 export default bookRouter
