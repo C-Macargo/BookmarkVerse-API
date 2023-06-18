@@ -27,7 +27,21 @@ async function deleteReview(userId: number, reviewId: number) {
 	return deletedReview;
 }
 
+async function editReview(reviewId: number, reviewText: string, reviewRating: number) {
+        const updatedReview = await prisma.review.update({
+            where: {
+                id: reviewId,
+            },
+            data: {
+                text: reviewText,
+                rating: reviewRating
+            },
+        });
+        return updatedReview;
+    } 
+
 export const reviewRepository = {
 	createReview,
 	deleteReview,
+	editReview
 };

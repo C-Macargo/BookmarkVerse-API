@@ -29,6 +29,20 @@ async function deleteReview(req: AuthenticatedRequest, res: Response) {
 	}
 }
 
+async function editReview(req: AuthenticatedRequest, res: Response) {
+	const { userId } = req as { userId: number };
+	const reviewId = Number(req.params);
+	const { reviewText, reviewRating } : { reviewText: string, reviewRating: number } = req.body;
+
+	try {
+		const reviews = await reviewService.editReview(userId, reviewId, reviewText, reviewRating);
+		return res.status(httpStatus.ACCEPTED).send({});
+	} catch (err: unknown) {
+		const error = err as ApplicationError | Error;
+		errorHandler(error, req, res);
+	}
+}
+
 
 export default {
     createReview,
