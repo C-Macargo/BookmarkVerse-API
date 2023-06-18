@@ -46,5 +46,6 @@ async function editReview(req: AuthenticatedRequest, res: Response) {
 
 export default {
     createReview,
-    deleteReview
+    deleteReview,
+	editReview
 };
