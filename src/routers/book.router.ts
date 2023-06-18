@@ -1,11 +1,12 @@
 import bookController from "@/controllers/book-controller";
-import { authenticateToken } from "@/middlewares/authentication-middleware";
+import { validateSchema } from "@/middlewares/schema-validation-middleware";
+import bookSchema from "@/schemas/book.schema";
 import { Router } from "express";
 
 const bookRouter = Router()
 
 bookRouter.get('/find/:googleBooksId', bookController.findSpecificBook);
-bookRouter.get('/find', bookController.findBooks);
+bookRouter.get('/find',validateSchema(bookSchema.booksSchema), bookController.findBooks);
 
 
 export default bookRouter
