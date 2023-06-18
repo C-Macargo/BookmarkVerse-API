@@ -30,7 +30,7 @@ interface VolumeInfo {
 	imageLinks?: ImageLinks;
 }
 
-export interface Book {
+export interface apiBook {
 	id: string;
 	volumeInfo: VolumeInfo;
 }

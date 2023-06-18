@@ -4,6 +4,7 @@ import { Router } from "express";
 
 const bookRouter = Router()
 
+bookRouter.get('/find/:googleBooksId', bookController.findSpecificBook);
 bookRouter.get('/find', bookController.findBooks);
 
 

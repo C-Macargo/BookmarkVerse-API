@@ -6,6 +6,7 @@ const bookmarkRouter = Router();
 
 bookmarkRouter.get('/find',authenticateToken, bookmarkController.findBookmarks)
 bookmarkRouter.post('/create',authenticateToken, bookmarkController.createBookmark)
+bookmarkRouter.delete('/delete',authenticateToken, bookmarkController.removeBookmark)
 
 
 export default bookmarkRouter;

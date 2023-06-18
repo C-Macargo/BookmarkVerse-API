@@ -1,5 +1,6 @@
 import { prisma } from "@/config";
-import { Book } from "@/utils/protocols";
+import { apiBook } from "@/utils/protocols";
+import { Book } from "@prisma/client";
 
 async function getExistingBookIds(googleBooksIds: string[]): Promise<string[]> {
     const existingBooks = await prisma.book.findMany({
@@ -13,7 +14,7 @@ async function getExistingBookIds(googleBooksIds: string[]): Promise<string[]> {
     return existingBooks.map(book => book.google_books_id);
 }
 
-async function insertBooks(newBooks: Book[]) {
+async function insertBooks(newBooks: apiBook[]) {
 	const createdBooks = newBooks.map(book => prisma.book.create({
 		data: {
 			google_books_id: book.id,
@@ -30,10 +31,21 @@ async function insertBooks(newBooks: Book[]) {
 	await Promise.all(createdBooks);
 }
 
+async function findSpecificBook(googleBooksId: string): Promise<Book | null> {
+    const book = await prisma.book.findUnique({
+        where: {
+            google_books_id: googleBooksId
+        }
+    });
+
+    return book;
+}
+
 
 
 export const bookRepository = {
 	insertBooks,
 	getExistingBookIds,
+	findSpecificBook
 };
 

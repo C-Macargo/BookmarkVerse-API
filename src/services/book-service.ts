@@ -1,18 +1,18 @@
 import { invalidSearchError } from "@/errors";
 import { bookRepository } from "@/repositories/book-repository";
 import searchBooks from "@/utils/external-api-request";
-import { Book } from "@/utils/protocols";
+import { apiBook } from "@/utils/protocols";
 
 async function findBooks(title: string) {
 	try {
 		const books = await searchBooks(title);
 		if (!books) throw invalidSearchError();
-		const googleBooksIds = books.items.map((book: Book) => book.id);
+		const googleBooksIds = books.items.map((book: apiBook) => book.id);
 		const existingBookIds = await bookRepository.getExistingBookIds(
 			googleBooksIds
 		);
 		const newBooks = books.items.filter(
-			(book: Book) => !existingBookIds.includes(book.id)
+			(book: apiBook) => !existingBookIds.includes(book.id)
 		);
 		if (newBooks.length > 0) {
 			await bookRepository.insertBooks(newBooks);
@@ -24,6 +24,14 @@ async function findBooks(title: string) {
 	}
 }
 
+
+async function findSpecificBook(googleBooksId: string) {
+	const book = await bookRepository.findSpecificBook (googleBooksId);
+	if (!book) throw invalidSearchError();
+	return book
+}
+
 export const bookService = {
 	findBooks,
+	findSpecificBook
 };
