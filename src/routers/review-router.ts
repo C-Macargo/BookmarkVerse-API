@@ -5,5 +5,7 @@ import { Router } from "express";
 const reviewRouter = Router();
 
 reviewRouter.post('/create',authenticateToken, reviewController.createReview)
+reviewRouter.delete('/delete/:reviewId', authenticateToken, reviewController.deleteReview);
+
 
 export default reviewRouter;

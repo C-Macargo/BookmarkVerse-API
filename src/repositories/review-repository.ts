@@ -17,6 +17,17 @@ async function createReview(
 	return review;
 }
 
+async function deleteReview(userId: number, reviewId: number) {
+	const deletedReview = await prisma.review.deleteMany({
+		where: {
+			id: reviewId,
+			user_id: userId,
+		},
+	});
+	return deletedReview;
+}
+
 export const reviewRepository = {
 	createReview,
+	deleteReview,
 };
