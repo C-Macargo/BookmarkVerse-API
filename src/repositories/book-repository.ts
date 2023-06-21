@@ -41,6 +41,16 @@ async function findSpecificBook(googleBooksId: string): Promise<Book | null> {
     return book;
 }
 
+async function findBookById(bookId: number): Promise<Book | null> {
+	const book = await prisma.book.findUnique({
+        where: {
+            id: bookId 
+        }
+    });
+
+    return book;
+}
+
 
 
 export const bookRepository = {

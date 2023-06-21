@@ -1,4 +1,5 @@
-import { badRequestError } from "@/errors";
+import { badRequestError, bookNotFoundError } from "@/errors";
+import { bookRepository } from "@/repositories/book-repository";
 import { reviewRepository } from "@/repositories/review-repository";
 
 async function createReview(userId: number, bookId: number, reviewText: string, reviewRating: number ) {
@@ -19,11 +20,18 @@ async function editReview(userId: number, reviewId: number, reviewText: string, 
     return review
 }
 
+async function getBookReviews(bookId: number, currentPage: number){
+    const book = bookRepository.findBookById(bookId)
+    if (!book) return bookNotFoundError()
+    const reviews = await reviewRepository.findBookReviews(bookId, currentPage)
+    return reviews
+}
 
 
 
 export const reviewService = {
     createReview,
     deleteReview,
-    editReview
+    editReview,
+    getBookReviews
 };

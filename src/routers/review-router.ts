@@ -7,6 +7,7 @@ const reviewRouter = Router();
 reviewRouter.post('/create',authenticateToken, reviewController.createReview)
 reviewRouter.delete('/delete/:reviewId', authenticateToken, reviewController.deleteReview);
 reviewRouter.put('/edit/:reviewId', authenticateToken, reviewController.editReview);
+reviewRouter.get('/get/:bookId', reviewController.getBookReviews);
 
 
 export default reviewRouter;
