@@ -4,6 +4,8 @@ import { reviewRepository } from "@/repositories/review-repository";
 
 async function createReview(userId: number, bookId: number, reviewText: string, reviewRating: number ) {
 	if (!userId || !bookId) throw badRequestError();
+    const book = await bookRepository.findBookById(bookId);
+	if (!book) return bookNotFoundError();
 	const review = await reviewRepository.createReview(userId, bookId, reviewText, reviewRating);
     return review
 }

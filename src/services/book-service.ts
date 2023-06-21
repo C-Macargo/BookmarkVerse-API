@@ -1,4 +1,4 @@
-import { invalidSearchError } from "@/errors";
+import { bookNotFoundError, invalidSearchError } from "@/errors";
 import { bookRepository } from "@/repositories/book-repository";
 import searchBooks from "@/utils/external-api-request";
 import { apiBook } from "@/utils/protocols";
@@ -27,7 +27,7 @@ async function findBooks(title: string) {
 
 async function findSpecificBook(googleBooksId: string) {
 	const book = await bookRepository.findSpecificBook (googleBooksId);
-	if (!book) throw invalidSearchError();
+	if (!book) throw bookNotFoundError();
 	return book
 }
 
