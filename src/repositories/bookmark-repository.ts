@@ -1,4 +1,4 @@
-import { prisma } from "@/config";
+import prisma from "@/config/database";
 
 async function findBookmarkByUserId(userId: number) {
 	const bookmarks = await prisma.bookmark.findMany({

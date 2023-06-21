@@ -34,3 +34,23 @@ export interface apiBook {
 	id: string;
 	volumeInfo: VolumeInfo;
 }
+
+export type UserEntity = {
+    id: number,
+    name: string,
+    email: string,
+    image: string,
+    password: string,
+}
+
+export type CheckEmail = {
+    email: string,
+    password: string,
+    id: number,
+    token: string,
+}
+
+export type NewLogin = {
+    email: string,
+    password: string
+}

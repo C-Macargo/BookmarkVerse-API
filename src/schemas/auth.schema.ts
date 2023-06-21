@@ -1,5 +1,4 @@
 import Joi, { Schema } from 'joi';
-import { ObjectSchema } from 'joi';
 
 const loginSchema: Schema = Joi.object({
     email: Joi.string().email().required(),
@@ -17,5 +16,4 @@ const registerSchema: Schema = Joi.object({
 export default {
     loginSchema: loginSchema as Schema,
     registerSchema: registerSchema as Schema
-
 };

@@ -1,4 +1,4 @@
-import { prisma } from "@/config";
+import prisma from "@/config/database";
 
 async function findUserByEmail(email: string) {
 	const user = await prisma.user.findUnique({

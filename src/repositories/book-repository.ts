@@ -1,4 +1,4 @@
-import { prisma } from "@/config";
+import prisma from "@/config/database";
 import { apiBook } from "@/utils/protocols";
 import { Book } from "@prisma/client";
 

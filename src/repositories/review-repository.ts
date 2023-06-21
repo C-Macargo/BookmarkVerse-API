@@ -1,4 +1,4 @@
-import { prisma } from "@/config";
+import prisma from "@/config/database";
 
 async function createReview(
 	userId: number,
