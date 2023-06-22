@@ -5,9 +5,9 @@ import { Request, Response } from "express";
 import httpStatus from "http-status";
 
 async function findBooks(req: Request, res: Response) {
-    const { title } = req.body as { title: string };
+	const { title } = req.body as { title: string };
 	try {
-		const books = await bookService.findBooks( title );
+		const books = await bookService.findBooks(title);
 		return res.status(httpStatus.OK).send(books);
 	} catch (err: unknown) {
 		const error = err as ApplicationError | Error;
@@ -18,8 +18,18 @@ async function findBooks(req: Request, res: Response) {
 async function findSpecificBook(req: Request, res: Response) {
 	const googleBooksId: string = req.params.googleBooksId;
 	try {
-		const book = await bookService.findSpecificBook( googleBooksId );
+		const book = await bookService.findSpecificBook(googleBooksId);
 		return res.status(httpStatus.OK).send(book);
+	} catch (err: unknown) {
+		const error = err as ApplicationError | Error;
+		errorHandler(error, req, res);
+	}
+}
+
+async function findPopularBooks(req: Request, res: Response) {
+	try {
+		const books = await bookService.findPopularBook();
+		return res.status(httpStatus.OK).send(books);
 	} catch (err: unknown) {
 		const error = err as ApplicationError | Error;
 		errorHandler(error, req, res);
@@ -28,5 +38,6 @@ async function findSpecificBook(req: Request, res: Response) {
 
 export default {
 	findBooks,
-	findSpecificBook
+	findSpecificBook,
+	findPopularBooks,
 };

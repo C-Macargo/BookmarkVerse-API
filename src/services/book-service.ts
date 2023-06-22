@@ -24,14 +24,19 @@ async function findBooks(title: string) {
 	}
 }
 
-
 async function findSpecificBook(googleBooksId: string) {
 	const book = await bookRepository.findSpecificBook (googleBooksId);
 	if (!book) throw bookNotFoundError();
 	return book
 }
 
+async function findPopularBook(){
+	const books = bookRepository.getPopularBooks()
+	return books
+}
+
 export const bookService = {
 	findBooks,
-	findSpecificBook
+	findSpecificBook,
+	findPopularBook
 };
