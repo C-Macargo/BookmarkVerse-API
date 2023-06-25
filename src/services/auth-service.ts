@@ -7,6 +7,14 @@ import bcrypt from "bcrypt";
 import { authRepository } from "../repositories/auth-repository";
 import jwt from "jsonwebtoken";
 
+interface LoginResponse {
+    data: {
+        id: number;
+        picture_url: string;
+    };
+    token: string;
+}
+
 async function createUser({
 	email,
 	password,
@@ -28,13 +36,13 @@ async function createUser({
 async function loginUser({
 	email,
 	password,
-}: AuthLoginRequestBody): Promise<string> {
+}: AuthLoginRequestBody): Promise<LoginResponse> {
 	const user = await authRepository.findUserByEmail(email);
 	if (!user) throw invalidCredentialsError();
 
 	const isPasswordValid = await bcrypt.compare(password, user.password);
 	if (!isPasswordValid) throw invalidCredentialsError();
-
+	const data = await authRepository.findUserData(email);
 	const session = await authRepository.findSessionByUserId(user.id as number);
 	if (!session || isTokenExpired(session.token)) {
 		const newToken = jwt.sign(
@@ -43,9 +51,10 @@ async function loginUser({
 			{ expiresIn: process.env.TOKEN_EXPIRATION }
 		);
 		await authRepository.upsertSessionToken(user.id, newToken);
-		return newToken;
+		return { data, token: newToken };
+
 	}
-	return session.token;
+    return { data, token: session.token };
 }
 
 function isTokenExpired(token: string): boolean {

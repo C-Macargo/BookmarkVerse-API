@@ -28,8 +28,8 @@ async function registerUser(req: Request, res: Response) {
 async function loginUser(req: Request, res: Response) {
 	const { email, password }: AuthLoginRequestBody = req.body;
 	try {
-		const userToken = await authService.loginUser({ email, password});
-		return res.status(httpStatus.OK).send({userToken});
+		const userData = await authService.loginUser({ email, password});
+		return res.status(httpStatus.OK).send(userData);
 	} catch (err: unknown) {
 		const error = err as ApplicationError | Error;
 		errorHandler(error, req, res);
