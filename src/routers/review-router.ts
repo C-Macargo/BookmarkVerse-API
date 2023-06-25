@@ -4,7 +4,7 @@ import { Router } from "express";
 
 const reviewRouter = Router();
 
-reviewRouter.get('/get/:bookId', reviewController.getBookReviews);
+reviewRouter.get('/find/:bookId', reviewController.getBookReviews);
 reviewRouter.post('/create',authenticateToken, reviewController.createReview)
 reviewRouter.delete('/delete/:reviewId', authenticateToken, reviewController.deleteReview);
 reviewRouter.put('/edit/:reviewId', authenticateToken, reviewController.editReview);

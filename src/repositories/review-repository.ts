@@ -47,7 +47,6 @@ async function editReview(
 async function findBookReviews(bookId: number, currentPage: number) {
 	const reviewsPerPage = 10;
 	const skip = (currentPage - 1) * reviewsPerPage;
-
 	const reviews = await prisma.review.findMany({
 		where: {
 			book_id: bookId,

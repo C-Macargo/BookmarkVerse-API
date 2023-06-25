@@ -34,8 +34,23 @@ async function removeBookmark(userId: number, bookId: number) {
 	return removedBookmark;
 }
 
+async function bookmarkExists(
+	userId: number,
+	bookId: number
+): Promise<boolean> {
+	const bookmarkCount = await prisma.bookmark.count({
+		where: {
+			user_id: userId,
+			book_id: bookId,
+		},
+	});
+
+	return bookmarkCount > 0;
+}
+
 export const bookmarkRepository = {
 	findBookmarkByUserId,
 	createBookmark,
-	removeBookmark
+	removeBookmark,
+	bookmarkExists
 };

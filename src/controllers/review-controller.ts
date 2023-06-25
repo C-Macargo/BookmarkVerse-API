@@ -6,7 +6,7 @@ import { Request, Response } from "express";
 import httpStatus from "http-status";
 
 async function getBookReviews(req: Request, res: Response) {
-	const bookId = Number(req.params);
+	const bookId = Number(req.params.bookId);
 	const currentPage = Number(req.query.page) || 1
 	try {
 		const reviews = await reviewService.getBookReviews(bookId, currentPage);
