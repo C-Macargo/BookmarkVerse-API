@@ -1,13 +1,13 @@
-import reviewController from "@/controllers/review-controller";
+import { createReview, deleteReview, editReview, getBookReviews } from "@/controllers/review-controller";
 import { authenticateToken } from "@/middlewares/authentication-middleware";
 import { Router } from "express";
 
 const reviewRouter = Router();
 
-reviewRouter.get('/find/:bookId', reviewController.getBookReviews);
-reviewRouter.post('/create',authenticateToken, reviewController.createReview)
-reviewRouter.delete('/delete/:reviewId', authenticateToken, reviewController.deleteReview);
-reviewRouter.put('/edit/:reviewId', authenticateToken, reviewController.editReview);
+reviewRouter.get('/find/:bookId', getBookReviews);
+reviewRouter.post('/create',authenticateToken, createReview)
+reviewRouter.delete('/delete/:reviewId', authenticateToken, deleteReview);
+reviewRouter.put('/edit/:reviewId', authenticateToken, editReview);
 
 
 export default reviewRouter;

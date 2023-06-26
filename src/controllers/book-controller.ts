@@ -4,7 +4,7 @@ import { ApplicationError } from "@/utils/protocols";
 import { Request, Response } from "express";
 import httpStatus from "http-status";
 
-async function findBooks(req: Request, res: Response) {
+export async function findBooks(req: Request, res: Response) {
 	const { title } = req.body as { title: string };
 	try {
 		const books = await bookService.findBooks(title);
@@ -15,7 +15,7 @@ async function findBooks(req: Request, res: Response) {
 	}
 }
 
-async function findSpecificBook(req: Request, res: Response) {
+export async function findSpecificBook(req: Request, res: Response) {
 	const googleBooksId: string = req.params.googleBooksId;
 	try {
 		const book = await bookService.findSpecificBook(googleBooksId);
@@ -26,7 +26,7 @@ async function findSpecificBook(req: Request, res: Response) {
 	}
 }
 
-async function findPopularBooks(req: Request, res: Response) {
+export async function findPopularBooks(req: Request, res: Response) {
 	try {
 		const books = await bookService.findPopularBook();
 		return res.status(httpStatus.OK).send(books);
@@ -36,8 +36,4 @@ async function findPopularBooks(req: Request, res: Response) {
 	}
 }
 
-export default {
-	findBooks,
-	findSpecificBook,
-	findPopularBooks,
-};
+

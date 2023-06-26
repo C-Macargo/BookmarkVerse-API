@@ -5,7 +5,7 @@ import { ApplicationError } from "@/utils/protocols";
 import { Request, Response } from "express";
 import httpStatus from "http-status";
 
-async function getBookReviews(req: Request, res: Response) {
+export async function getBookReviews(req: Request, res: Response) {
 	const bookId = Number(req.params.bookId);
 	const currentPage = Number(req.query.page) || 1
 	try {
@@ -17,7 +17,7 @@ async function getBookReviews(req: Request, res: Response) {
 	}
 }
 
-async function createReview(req: AuthenticatedRequest, res: Response) {
+export async function createReview(req: AuthenticatedRequest, res: Response) {
 	const { userId } = req as { userId: number };
 	const {
 		bookId,
@@ -38,7 +38,7 @@ async function createReview(req: AuthenticatedRequest, res: Response) {
 	}
 }
 
-async function deleteReview(req: AuthenticatedRequest, res: Response) {
+export async function deleteReview(req: AuthenticatedRequest, res: Response) {
 	const { userId } = req as { userId: number };
 	const reviewId = Number(req.params);
 	try {
@@ -50,7 +50,7 @@ async function deleteReview(req: AuthenticatedRequest, res: Response) {
 	}
 }
 
-async function editReview(req: AuthenticatedRequest, res: Response) {
+export async function editReview(req: AuthenticatedRequest, res: Response) {
 	const { userId } = req as { userId: number };
 	const reviewId = Number(req.params);
 	const {
@@ -72,9 +72,3 @@ async function editReview(req: AuthenticatedRequest, res: Response) {
 	}
 }
 
-export default {
-	createReview,
-	deleteReview,
-	editReview,
-	getBookReviews
-};

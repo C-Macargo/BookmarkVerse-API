@@ -5,7 +5,7 @@ import { ApplicationError } from "@/utils/protocols";
 import { Response } from "express";
 import httpStatus from "http-status";
 
-async function findBookmarks(req: AuthenticatedRequest, res: Response) {
+export async function findBookmarks(req: AuthenticatedRequest, res: Response) {
 	const { userId } = req as { userId: number };
 	try {
 		const bookmarks = await bookmarkService.findBookmarks(userId);
@@ -16,7 +16,7 @@ async function findBookmarks(req: AuthenticatedRequest, res: Response) {
 	}
 }
 
-async function createBookmark(req: AuthenticatedRequest, res: Response) {
+export async function createBookmark(req: AuthenticatedRequest, res: Response) {
 	const { userId } = req as { userId: number };
 	const { bookId } = req.body as { bookId: number };
 	try {
@@ -28,7 +28,7 @@ async function createBookmark(req: AuthenticatedRequest, res: Response) {
 	}
 }
 
-async function removeBookmark(req: AuthenticatedRequest, res: Response) {
+export async function removeBookmark(req: AuthenticatedRequest, res: Response) {
 	const { userId } = req as { userId: number };
 	const { bookId } = req.body as { bookId: number };
 	try {
@@ -42,8 +42,4 @@ async function removeBookmark(req: AuthenticatedRequest, res: Response) {
 }
 
 
-export default {
-	findBookmarks,
-	createBookmark,
-	removeBookmark
-};
+

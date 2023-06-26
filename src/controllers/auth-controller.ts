@@ -8,7 +8,7 @@ import { ApplicationError } from "../utils/protocols";
 import httpStatus from "http-status";
 import { authService } from "@/services/auth-service";
 
-async function registerUser(req: Request, res: Response) {
+export async function registerUser(req: Request, res: Response) {
 	const { email, password, name, picture_url }: AuthRegisterRequestBody =
 		req.body;
 	try {
@@ -25,7 +25,7 @@ async function registerUser(req: Request, res: Response) {
 	}
 }
 
-async function loginUser(req: Request, res: Response) {
+export async function loginUser(req: Request, res: Response) {
 	const { email, password }: AuthLoginRequestBody = req.body;
 	try {
 		const userData = await authService.loginUser({ email, password});
@@ -36,7 +36,3 @@ async function loginUser(req: Request, res: Response) {
 	}
 }
 
-export default {
-	registerUser,
-	loginUser,
-};
