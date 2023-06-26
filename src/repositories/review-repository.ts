@@ -55,6 +55,12 @@ async function findBookReviews(bookId: number, currentPage: number) {
 			id: true,
 			rating: true,
 			text: true,
+			user: {  
+				select: {
+					name: true,
+					picture_url: true
+				}
+			}
 		},
 		skip: skip,
 		take: reviewsPerPage,
